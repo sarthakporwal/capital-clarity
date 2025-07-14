@@ -34,14 +34,17 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
     ? (currentExpenses / initialBudget.amount) * 100
     : 0;
 
+  // Determine progress bar color
+  let progressColor = "bg-green-500";
+  if (percentUsed >= 90) progressColor = "bg-red-500";
+  else if (percentUsed >= 75) progressColor = "bg-yellow-500";
+
   const handleUpdateBudget = async () => {
     const amount = parseFloat(newBudget);
-
     if (isNaN(amount) || amount <= 0) {
       toast.error("Please enter a valid amount");
       return;
     }
-
     await updateBudgetFn(amount);
   };
 
@@ -64,10 +67,10 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
   }, [error]);
 
   return (
-    <Card>
+    <Card className="shadow-xl rounded-2xl border-0 bg-gradient-to-br from-blue-100/60 to-purple-100/60 dark:from-blue-900/30 dark:to-purple-900/30 animate-fade-in">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <div className="flex-1">
-          <CardTitle className="text-sm font-medium">
+          <CardTitle className="text-base md:text-lg font-semibold tracking-tight mb-1">
             Monthly Budget (Default Account)
           </CardTitle>
           <div className="flex items-center gap-2 mt-1">
@@ -87,6 +90,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                   size="icon"
                   onClick={handleUpdateBudget}
                   disabled={isLoading}
+                  className="transition-colors"
                 >
                   <Check className="h-4 w-4 text-green-500" />
                 </Button>
@@ -95,6 +99,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                   size="icon"
                   onClick={handleCancel}
                   disabled={isLoading}
+                  className="transition-colors"
                 >
                   <X className="h-4 w-4 text-red-500" />
                 </Button>
@@ -112,7 +117,7 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsEditing(true)}
-                  className="h-6 w-6"
+                  className="h-6 w-6 transition-colors"
                 >
                   <Pencil className="h-3 w-3" />
                 </Button>
@@ -123,21 +128,16 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
       </CardHeader>
       <CardContent>
         {initialBudget && (
-          <div className="space-y-2">
-            <Progress
-              value={percentUsed}
-              extraStyles={`${
-                // add to Progress component
-                percentUsed >= 90
-                  ? "bg-red-500"
-                  : percentUsed >= 75
-                    ? "bg-yellow-500"
-                    : "bg-green-500"
-              }`}
-            />
-            <p className="text-xs text-muted-foreground text-right">
-              {percentUsed.toFixed(1)}% used
-            </p>
+          <div className="space-y-2 mt-2">
+            <div className="w-full h-5 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden relative">
+              <div
+                className={`h-full rounded-full transition-all duration-700 ease-in-out ${progressColor}`}
+                style={{ width: `${Math.min(percentUsed, 100)}%` }}
+              />
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-semibold text-gray-700 dark:text-gray-200">
+                {percentUsed.toFixed(1)}% used
+              </span>
+            </div>
           </div>
         )}
       </CardContent>
