@@ -10,20 +10,16 @@ import {
 // Stats Data
 export const statsData = [
   {
-    value: "50K+",
+    value: "50+",
     label: "Active Users",
   },
   {
-    value: "$2B+",
+    value: "100+",
     label: "Transactions Tracked",
   },
   {
     value: "99.9%",
     label: "Uptime",
-  },
-  {
-    value: "4.9/5",
-    label: "User Rating",
   },
 ];
 
@@ -88,21 +84,21 @@ export const howItWorksData = [
 // Testimonials Data
 export const testimonialsData = [
   {
-    name: "Sarah Johnson",
+    name: "Sarthak Porwal",
     role: "Small Business Owner",
     image: "https://randomuser.me/api/portraits/women/75.jpg",
     quote:
       "Welth has transformed how I manage my business finances. The AI insights have helped me identify cost-saving opportunities I never knew existed.",
   },
   {
-    name: "Michael Chen",
+    name: "Ujjwal Baranwal",
     role: "Freelancer",
     image: "https://randomuser.me/api/portraits/men/75.jpg",
     quote:
       "The receipt scanning feature saves me hours each month. Now I can focus on my work instead of manual data entry and expense tracking.",
   },
   {
-    name: "Emily Rodriguez",
+    name: "Praneet Jain",
     role: "Financial Advisor",
     image: "https://randomuser.me/api/portraits/women/74.jpg",
     quote:
